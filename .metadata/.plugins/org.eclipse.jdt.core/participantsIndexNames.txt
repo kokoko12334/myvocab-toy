@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+D:\javas_ee\myvocab\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2333162156.index
+\myVocabularyList\src\main\java
+D:\javas_ee\myvocab\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3003535811.index
+\myVocabularyList\src\main\java
