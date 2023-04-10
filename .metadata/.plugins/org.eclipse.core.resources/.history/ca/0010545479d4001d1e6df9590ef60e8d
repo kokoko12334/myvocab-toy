@@ -1,0 +1,38 @@
+package examspring;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+@RequestMapping(value="/mul")
+public class MulController {
+	public MulController() {
+		System.out.println("MulController()");
+	}
+	@RequestMapping(method=RequestMethod.GET)
+	public String min() {
+		return "mulForm";
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ModelAndView min(int n1, int n2, ModelAndView mav) {
+		int result = n1 * n2;
+		
+		mav.setViewName("mulResult");
+		mav.addObject("n1", n1);
+		mav.addObject("n2", n2);
+		mav.addObject("result", result);
+		
+		return mav;
+	}
+}
+
+
+
+
+
+
+
+

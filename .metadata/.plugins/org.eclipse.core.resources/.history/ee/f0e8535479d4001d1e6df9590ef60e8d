@@ -1,0 +1,38 @@
+package examspring;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+@RequestMapping(value="/min")
+public class MinController {
+	public MinController() {
+		System.out.println("MinController()");
+	}
+	@RequestMapping(method=RequestMethod.GET)
+	public String min() {
+		return "minForm";
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public String min(int n1, @RequestParam(name = "n2")int n3, Model model) {
+		int result = n1 - n3;
+		
+		model.addAttribute("n1", n1);
+		model.addAttribute("n2", n3);
+		model.addAttribute("result", result);
+		
+		return "minResult";
+	}
+}
+
+
+
+
+
+
+
+

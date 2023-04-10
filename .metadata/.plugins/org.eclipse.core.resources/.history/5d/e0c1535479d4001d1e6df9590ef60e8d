@@ -1,0 +1,43 @@
+package examspring;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping(value="/div")
+public class DivController {
+	public DivController() {
+		System.out.println("DivController()");
+	}
+
+	@GetMapping
+	public String min() {
+		return "divForm";
+	}
+	
+	@PostMapping
+	//@ResponseBody //view파일 대신 문자열을 직접 반환(@RequestBody)
+	public String min(
+			//@RequestBody String str,
+			@ModelAttribute("n1") int n1, 
+			@ModelAttribute("n2") int n2, 
+			Model model) {
+		int result = n1 / n2;
+		
+		model.addAttribute("result", result);
+		
+		return "divResult";
+	}
+}
+
+
+
+
+
+
+
+

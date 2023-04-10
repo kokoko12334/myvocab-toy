@@ -1,0 +1,44 @@
+package com.ko.web.entity;
+
+public class VocabDto {
+
+	
+	private String id;
+	private int vocabNum;
+	
+	
+	public VocabDto() {
+		
+	}
+
+
+	public VocabDto(String id, int vocabNum) {
+		super();
+		this.id = id;
+		this.vocabNum = vocabNum;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public int getVocabNum() {
+		return vocabNum;
+	}
+
+
+	public void setVocabNum(int vocabNum) {
+		this.vocabNum = vocabNum;
+	}
+	
+	
+	
+	
+}

@@ -73,6 +73,7 @@ public class MemberService {
 		psmt.setString(1, id);
 		
 		ResultSet rs = psmt.executeQuery();
+		
 		if(rs.next()) {
 		
 		String pwd =  rs.getString("pwd");
@@ -85,8 +86,12 @@ public class MemberService {
 		
 		MembersDto dto = new MembersDto(id,pwd,name,gender,birthday,phone,regdate,email);
 		
+		rs.close();
+		psmt.close();
+		con.close();
 		
 		return dto;
+		
 		}else
 			return null;
 	}

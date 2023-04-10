@@ -1,0 +1,108 @@
+package com.ko.web.service;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.ko.web.entity.WordsDto;
+import com.mysql.cj.protocol.Resultset;
+
+public class WordsService {
+	String driver = "com.mysql.cj.jdbc.Driver";
+	String url = "jdbc:mysql://localhost:3306/myvocab";
+	String user = "test";
+	String password = "1234";
+	
+	
+	public int insert(WordsDto dto) throws ClassNotFoundException, SQLException {
+		
+		String id = dto.getId();
+		String vocabName = dto.getVocabName();
+		String english = dto.getEnglish();
+		String korean = dto.getKorean();
+		
+		// 중복 단어 체크
+		List<List<String>> list = new ArrayList<>();
+		for(List<String> i: list) {
+			
+			String check = i.get(0);
+			
+			if(check.equals(english)) {
+				return -1;
+			}
+			
+		}
+		
+		
+		Class.forName(driver);
+		
+		Connection con = DriverManager.getConnection(url, user,password);
+		
+		String sql = "INSERT INTO words(id, vocab_name, english, korean) VALUES(?,?,?,?)";
+		
+		PreparedStatement psmt = con.prepareStatement(sql);
+		
+		psmt.setString(1, id);
+		psmt.setString(2, vocabName);
+		psmt.setString(3, english);
+		psmt.setString(4, korean);
+		
+		
+		
+		int result = psmt.executeUpdate();
+	
+		
+		return result;
+	}
+	
+	
+	public List<List<String>> getwords(String id, String vocabName) throws ClassNotFoundException, SQLException{
+		
+		String english;
+		String korean;
+		String score;
+		
+		Class.forName(driver);
+		
+		Connection con = DriverManager.getConnection(url, user,password);
+		
+		String sql = "SELECT english, korean, score FROM words WHERE id = ? AND vocab_name = ?";
+		
+		PreparedStatement psmt = con.prepareStatement(sql);
+		
+		psmt.setString(1, id);
+		psmt.setString(2, vocabName);
+		
+		
+		ResultSet rs = psmt.executeQuery();
+		
+		
+		List<List<String>> list = new ArrayList<>();
+		
+		while(rs.next()) {
+			
+			List<String> words = new ArrayList<>();
+			
+			english = rs.getString("english");
+			korean = rs.getString("korean");
+			score = rs.getString("score");
+			
+			words.add(english);
+			words.add(korean);
+			words.add(score);
+			
+			list.add(words);
+		}
+		
+		
+		return list;
+	}
+	
+	
+	
+}

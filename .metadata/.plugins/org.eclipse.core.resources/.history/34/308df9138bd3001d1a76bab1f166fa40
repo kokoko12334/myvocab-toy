@@ -1,0 +1,5 @@
+package com.ko.web.entity;
+
+public class WordsDto {
+
+}

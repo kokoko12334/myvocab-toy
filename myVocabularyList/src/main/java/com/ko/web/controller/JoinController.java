@@ -1,6 +1,8 @@
 package com.ko.web.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -42,10 +44,21 @@ public class JoinController extends HttpServlet {
 		
 		MemberService joinsvc = new MemberService();
 		
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		
 		try {
 			int result = joinsvc.insert(dto);
 			System.out.println(result);
-			req.getRequestDispatcher("/WEB-INF/views/join.html").forward(req, resp);
+			if(result == 1) {
+				out.println("<script>");
+				out.println("alert('회원가입이 완료되었습니다.');");
+				out.println("location.href='/home.jsp';");
+				out.println("</script>");
+				out.close();
+			}
+			
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

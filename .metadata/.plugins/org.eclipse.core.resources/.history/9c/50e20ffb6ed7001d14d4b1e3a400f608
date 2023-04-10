@@ -1,0 +1,115 @@
+package com.ko.web.controller;
+
+
+@WebServlet("/login")
+public class LoginCotroller extends HttpServlet {
+
+	
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		String id = req.getParameter("id");
+		String pwd = req.getParameter("pwd");
+		
+		MemberService svc = new MemberService();
+		
+		
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		try {
+			
+			MembersDto dto = svc.getInfoByid(id);
+			
+			if (dto != null) {
+				String pwd_check = dto.getPwd();
+			
+				if (pwd.equals(pwd_check)) {
+					System.out.println("로그인 성공");
+					VocabService vocabSvc = new VocabService();  //해당 id의 단어장 정보
+					HttpSession session = req.getSession();
+					
+					List<String> list = vocabSvc.getVocabsByid(id); //해당 id의 단어장 정보
+					
+					session.setAttribute("id", id);
+					session.setAttribute("pwd", pwd);
+					
+					req.setAttribute("list", list);
+					req.getRequestDispatcher("/WEB-INF/views/myvocabulary/mynotes.jsp").forward(req, resp);
+				}else {
+					//비밀번호 불일치시
+					out.println("<script>");
+					out.println("alert('아이디 혹은 비밀번호가 일치하지 않습니다.');");
+					out.println("history.back()");
+					out.println("</script>");   
+					}
+			
+			}else {
+				// 아이디가 존재하지 않을 시
+				out.println("<script>");
+				out.println("alert('아이디 혹은 비밀번호가 일치하지 않습니다.');");
+				out.println("history.back()");
+				out.println("</script>");
+				}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession(false);
+		
+		String id = (String) session.getAttribute("id");
+		
+		VocabService vocabSvc = new VocabService();
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		
+		if(id == null) {
+			out.println("<script>");
+			out.println("alert('잘못된 접근입니다.');");
+			out.println("history.back()");
+			out.println("</script>"); 
+		}
+		
+		try {
+			if(id == null) {
+				out.println("<script>");
+				out.println("alert('잘못된 접근입니다.');");
+				out.println("history.back()");
+				out.println("</script>"); 
+			}else {
+			
+			List<String> list = vocabSvc.getVocabsByid(id);
+			req.setAttribute("list", list);
+			req.getRequestDispatcher("/WEB-INF/views/myvocabulary/mynotes.jsp").forward(req, resp);
+			}
+			
+			
+			
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+}

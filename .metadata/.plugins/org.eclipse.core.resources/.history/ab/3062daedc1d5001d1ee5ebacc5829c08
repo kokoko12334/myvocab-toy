@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+/* 클래스는 . 아이디는 # */
+
+.input_wrapper{
+	position: relative;
+	left: 60px;
+}

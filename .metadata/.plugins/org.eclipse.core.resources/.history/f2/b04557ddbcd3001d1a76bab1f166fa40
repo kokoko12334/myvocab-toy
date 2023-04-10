@@ -1,0 +1,13 @@
+package com.ko.web.controller;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet("/deletevocab")
+public class DeleteVocabController extends HttpServlet{
+
+	
+	public static void main(String[] args) {
+		System.out.println("dd");
+	}
+}

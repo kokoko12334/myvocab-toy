@@ -1,0 +1,53 @@
+package com.ko.web.controller;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.mysql.cj.xdevapi.JsonParser;
+
+
+@WebServlet("/score")
+public class ScoreController extends HttpServlet {
+
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("post");
+		
+	String scoreString = req.getParameter("score");
+	
+	JSONParser parser = new JSONParser();
+	
+	try {
+		JSONObject score = (JSONObject)parser.parse(scoreString);
+		
+		List<String> english = (List<String>)score.keySet();
+		System.out.println(english.get(0));
+		
+		System.out.println(score);
+	} catch (ParseException e) {
+		
+		e.printStackTrace();
+	}
+	
+	
+	
+	
+	
+	}
+	
+	
+}

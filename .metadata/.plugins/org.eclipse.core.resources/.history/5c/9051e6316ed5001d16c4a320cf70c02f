@@ -1,0 +1,88 @@
+package com.ko.web.controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.ko.web.service.WordsService;
+
+@WebServlet("/detail")
+public class DetailController extends HttpServlet{
+
+	
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String id = req.getParameter("id");
+		String vocabName = req.getParameter("name");
+		
+		
+		WordsService wordsSvc = new WordsService();
+		
+		List<List<String>> wordsList = new ArrayList<>();
+		
+		
+		try {
+			
+			wordsList = wordsSvc.getwords(id, vocabName);
+			
+			// 정답률 소수로 변환
+			for(List<String> lst: wordsList) {
+				
+				String scoreStr = lst.get(2);
+				String[] scoreArr = scoreStr.split("\\.");
+				int son = Integer.parseInt(scoreArr[0]);
+				int mother = Integer.parseInt(scoreArr[1]);
+				if(mother != 0) {
+					double score = Math.round((son/mother)*100)/100.0;
+					System.out.println(score);
+					System.out.println(Math.round((son/mother)*100));
+					System.out.println((son/mother));
+					double test = 1/2;
+					System.out.println(test);
+					
+					String r = String.valueOf(score);
+					lst.set(2, r);
+				}else {
+					lst.set(2, "통계 없음");
+				}
+			}
+			
+			
+			
+			
+			HttpSession session = req.getSession(false);
+			session.setAttribute("wordsList", wordsList);
+			session.setAttribute("vocabName", vocabName); // 단어장 이름도 저장
+			
+			
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	
+		req.getRequestDispatcher("/WEB-INF/views/myvocabulary/detail.jsp").forward(req, resp);
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	}
+
+}

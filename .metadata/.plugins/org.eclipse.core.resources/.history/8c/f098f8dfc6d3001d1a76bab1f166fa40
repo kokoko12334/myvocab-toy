@@ -1,0 +1,12 @@
+package com.ko.web.controller;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet("/updateword")
+public class DetailUpdateController extends HttpServlet{
+
+	
+	
+	
+}

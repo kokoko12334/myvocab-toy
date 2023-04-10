@@ -1,0 +1,71 @@
+package com.ko.web.service;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
+import com.ko.web.entity.WordsDto;
+import com.mysql.cj.protocol.Resultset;
+
+public class WordsService {
+	String driver = "com.mysql.cj.jdbc.Driver";
+	String url = "jdbc:mysql://localhost:3306/myvocab";
+	String user = "test";
+	String password = "1234";
+	
+	
+	public int insert(WordsDto dto) throws ClassNotFoundException, SQLException {
+		
+		String id = dto.getId();
+		String vocabName = dto.getVocabName();
+		String english = dto.getEnglish();
+		String korean = dto.getKorean();
+		
+		
+		Class.forName(driver);
+		
+		Connection con = DriverManager.getConnection(url, user,password);
+		
+		String sql = "INSERT INTO words(id, vocab_name, english, korean) VALUES(?,?,?,?)";
+		
+		PreparedStatement psmt = con.prepareStatement(sql);
+		
+		psmt.setString(1, id);
+		psmt.setString(2, vocabName);
+		psmt.setString(3, english);
+		psmt.setString(4, korean);
+		
+		
+		
+		int result = psmt.executeUpdate();
+	
+		
+		return result;
+	}
+	
+	public List<List<String>> getwords(String id, String vocabName) throws ClassNotFoundException, SQLException{
+		
+		Class.forName(driver);
+		
+		Connection con = DriverManager.getConnection(url, user,password);
+		
+		String sql = "SELECT english, korean, score FROM words WHERE id = ? AND vocab_name = ?";
+		
+		PreparedStatement psmt = con.prepareStatement(sql);
+		
+		psmt.setString(1, id);
+		psmt.setString(2, vocabName);
+		
+		
+		ResultSet rs = psmt.executeQuery();
+		
+		
+	}
+	
+	
+	
+}

@@ -17,11 +17,10 @@ public class LogoutController extends HttpServlet {
 		
 		HttpSession session = req.getSession(false); // 기존에 세션이 존재하면 그 객체 반환, 없으면 null
 		
-		String id = (String)session.getAttribute("id");
-		System.out.println(id);
 		
 		
-		session.removeAttribute(id);
+		
+		session.invalidate();
 		
 		resp.sendRedirect("/home.jsp");
 		

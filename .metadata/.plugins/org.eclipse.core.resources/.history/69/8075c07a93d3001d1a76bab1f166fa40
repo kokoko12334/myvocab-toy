@@ -1,0 +1,71 @@
+package com.ko.web.entity;
+
+public class WordsDto {
+
+	
+	private String id;
+	private String vocabName;
+	private String english;
+	private String korean;
+	private String score = "0";
+	
+	public WordsDto() {
+		
+		
+	}
+
+	public WordsDto(String id, String vocabName, String english, String korean, String score) {
+		super();
+		this.id = id;
+		this.vocabName = vocabName;
+		this.english = english;
+		this.korean = korean;
+		this.score = score;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getVocabName() {
+		return vocabName;
+	}
+
+	public void setVocabName(String vocabName) {
+		this.vocabName = vocabName;
+	}
+
+	public String getEnglish() {
+		return english;
+	}
+
+	public void setEnglish(String english) {
+		this.english = english;
+	}
+
+	public String getKorean() {
+		return korean;
+	}
+
+	public void setKorean(String korean) {
+		this.korean = korean;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+	
+	
+	
+	
+	
+	
+}

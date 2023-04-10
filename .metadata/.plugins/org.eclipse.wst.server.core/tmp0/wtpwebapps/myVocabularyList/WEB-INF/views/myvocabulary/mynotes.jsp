@@ -8,13 +8,61 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
 </head>
 <body>
-
-	<p>${id}님의 단어장</p> 
+<!-- class="col text-center" -->
+<div>
+	<h2>${id}님의 단어장</h2> 
+	
 	<form action = "/logout" method = "post">
 		<input type = submit value = "로그아웃">
 	</form>
+</div>
+
+
+
+
+<div class = "my-5" style = "margin-top: 93px;width: 940px;">	
+	<form class="form-inline w-50" action = "/addvocab" method = "post">
+		<div class="input-group">
+			<input type = text class="form-control"  name = "vocabName" placeholder = "추가할 단어장 이름을 입력하세요.">
+			<button class="btn btn-outline-secondary">단어장 추가</button>
+		</div>	
+	</form>
+
+	
+	
+	<table class="table table-sm">
+		<colgroup>
+            <col width=10%>
+            <col width=20%>
+            <col width=40%>
+            <col width=30%>
+        </colgroup>
+        
+		<tr>
+			<th>번호</th>
+			<th>단어장 이름</th>
+		</tr>
+		
+		<c:forEach var = "n" items = "${list}" varStatus = "st">
+			<tr>
+				<td>${st.index+1}</td>
+				<td>${n}</td>
+				<td>
+					<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/quiz?id=${id}&name=${n}'">퀴즈 시작</button>
+					<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/detail?id=${id}&name=${n}'">단어 조회/수정</button>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="location.href='/deleteVocab?idx=${st.index}&id=${id}&name=${n}'">삭제</button>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>	
+	
+	
+	
 	
 	
 	

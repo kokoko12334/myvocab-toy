@@ -1,0 +1,5 @@
+package com.ko.web.exception;
+
+public class WrongAccess {
+
+}

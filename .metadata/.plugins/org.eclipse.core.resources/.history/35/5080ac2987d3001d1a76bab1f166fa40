@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<p>${id}님의 단어장</p> 
+	
+	<form action = "/logout" method = "post">
+		<input type = submit value = "로그아웃">
+	</form>
+	
+	<form action = "/addvocab" method = "post">
+		<input type = text name = "vocabName" placeholder = "추가할 단어장 이름을 입력">
+		<input type = submit value = "단어장 추가">
+	</form>
+	
+	
+	
+	<table border = "1">
+		<tr>
+			<th>단어장 이름</th>
+		</tr>
+		
+		<c:forEach var = "n" items = "${list}">
+			<tr>
+				<td>${n}</td>
+				<td>
+					<button type="button" onclick="alert('Hello World!')">퀴즈 시작</button>
+					<button type="button" onclick="alert('Hello World!')">단어 조회</button>
+					<button type="button" onclick="alert('Hello World!')">수정</button>
+					<button type="button" onclick="alert('Hello World!')">삭제</button>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>

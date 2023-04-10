@@ -1,26 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>영어단어장 홈화면</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
 </head>
 
 <body>
-
-	<div>
-		<form action = "/login" method = "post" >
-			<input type = "text" name = "id" placeholder = "아이디">
-			<input type = "password" name = "pwd" placeholder = "비밀번호">
-			<input type = "submit" value = "로그인">
+	
+	<div  style="float: right;margin-right:50%;margin-top: 200px;text-align:right" >
+		
+		<form action = "/login" method = "post" style="height: 164px;width: 261px;">
+			<input class="form-control my-3" style = "height:50px; width: 260px;" type = "text" name = "id" placeholder = "아이디">
+			<input class="form-control my-3" style = "height:50px; width: 260px;" type = "password" name = "pwd" placeholder = "비밀번호">
+			
+			<div style="float: left;">
+				<button type="button" class="btn btn-secondary btn-sm"  onClick="location.href='joinForm.jsp'">회원가입</button>	
+			</div>
+			
+			<button type = "submit"  class="btn btn-primary btn-sm" >로그인</button>
 			
 		</form>
+		
 	</div>
 
-	<div>
-		<button type="button" class="navyBtn" onClick="location.href='joinForm.jsp'">회원가입
-	</div>
+	
+		
+	
 
 
 </body>

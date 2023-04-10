@@ -1,0 +1,12 @@
+package com.ko.web.exception;
+
+public class WrongAccess extends Exception {
+
+	
+	
+	@Override
+	public String getMessage() {
+	
+		return "잘못된 접근입니다.";
+	}
+}

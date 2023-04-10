@@ -1,0 +1,81 @@
+package com.ko.web.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.ko.web.entity.WordsDto;
+import com.ko.web.service.WordsService;
+
+@WebServlet("/addword")
+public class DetailAddController extends HttpServlet {
+
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession(false);
+		
+		String id = (String) session.getAttribute("id");
+		String vocabName = (String) session.getAttribute("vocabName");
+		
+		String english = req.getParameter("english");
+		String korean = req.getParameter("korean");
+		List<String> list = new ArrayList<>();
+		list.add(english);
+		list.add(korean);
+		list.add("통계 없음");
+		
+		WordsDto dto = new WordsDto(id, vocabName, english, korean);
+		
+		
+		WordsService wordsSvc = new WordsService();
+		
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		
+		try {
+			int result = wordsSvc.insert(dto);
+			
+			if(result == -1) {
+				out.println("<script>");
+				out.println("alert('중복되는 단어가 있습니다.');");
+				out.println("history.back()");
+				out.println("</script>"); 
+			}else {
+				String encodeName = URLEncoder.encode(vocabName, "UTF-8");
+				resp.sendRedirect("/detail?id="+ id + "&name=" + encodeName);
+				
+			}
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+}
